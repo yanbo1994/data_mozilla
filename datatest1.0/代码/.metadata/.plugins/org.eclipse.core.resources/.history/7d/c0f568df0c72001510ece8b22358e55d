@@ -1,0 +1,19 @@
+package dataprocess;
+
+import java.text.SimpleDateFormat;
+
+public class TransTime {
+	String trans(String a){
+		SimpleDateFormat format =   new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		Long time=new Long(a);
+		String str = format.format(time);
+		System.out.println("Format To String(Date):"+str);
+
+		return str;
+	}
+	
+	public static void main(String[] args){
+		TransTime tt=new TransTime();
+		tt.trans("891887820");
+	}
+}

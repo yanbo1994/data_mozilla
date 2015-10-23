@@ -1,0 +1,72 @@
+package dataprocess_txt;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class Mailsuffix_BigtoSmall {
+	public static void main(String[] args) throws IOException {
+		try{
+			FileInputStream rf;
+			rf=new FileInputStream("D:\\文件\\专业实训二\\2011_mozilla\\mai_country2.txt");
+			FileOutputStream wf;
+			wf=new FileOutputStream("D:\\文件\\专业实训二\\2011_mozilla\\mai_country5.txt");
+			int n=100000;//偏移量，每次读取长度
+			byte buffer1[]=new byte[n];
+			while((rf.read(buffer1, 0, n))!=-1){//循环读取，直至读到末尾
+				System.out.println(new String(buffer1));
+				String a = new String(buffer1);
+				String[] str1=a.split(",");
+				String[] str2=new String[str1.length];
+				Mailsuffix_BigtoSmall mm=new Mailsuffix_BigtoSmall();
+				str2[0]=str1[0];
+				for(int i=1;i<str1.length;i++){
+					str2[i]=mm.getmail(str1[i]);
+				}
+				String c=mm.trans(str2);
+				byte[] buffer2 = c.getBytes();
+				wf.write(buffer2, 0, n);//将读取的buffer中的数据写入
+				System.out.println(new String(buffer2));
+			}
+			System.out.println();
+			System.out.println("sucess of write");
+			rf.close();
+			wf.close();
+		}
+		catch(IOException ioe){
+			System.out.println(ioe);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+
+	}
+	
+	private String getmail(String a){
+		String str=a.substring(a.length()-1, a.length());
+		return str;
+	}
+
+	private void speout(String b) {
+		String str[]=b.split(" ");
+		for(int i=0;i<str.length;i=i+2){
+			System.out.println(str[i]);
+		}
+		
+	}
+	
+	private String trans(String[] ary){
+		StringBuffer sb = new StringBuffer();
+		for(int i = 0; i < ary.length; i++){
+		 sb. append(ary[i]);
+		}
+		String newStr = sb.toString(); 
+		return newStr;
+	}
+
+	private String change(String a) {
+		String s=a.toLowerCase();
+		return s;
+	}
+
+}

@@ -1,0 +1,82 @@
+package chart;
+
+import java.awt.Font;
+
+import javax.swing.JPanel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.ApplicationFrame;
+
+@SuppressWarnings("serial")
+public class Jfreechart extends ApplicationFrame{
+	static int[] commentNum=new int[24];
+	
+    public Jfreechart(String title){
+        super(title);
+        this.setContentPane(createPanel());
+        for(int i=0;i<24;i++){
+        	commentNum[i]=45;
+        }
+    }
+    
+    public static CategoryDataset createDataset(){
+    	char hour='5';
+        DefaultCategoryDataset dataset=new DefaultCategoryDataset();
+        for(int i=0;i<24;i++){
+        	dataset.setValue(commentNum[i] ,(hour+1*i)+":00" ,(hour+1*i)+"h" );
+        }
+        /*dataset.setValue(commentNum[0] ,"6:00" , "6");
+        dataset.setValue(commentNum[1] ,"7:00" , "7");
+        dataset.setValue(commentNum[2] ,"8:00" , "8");
+        dataset.setValue(commentNum[3] ,"9:00" , "9");
+        dataset.setValue(commentNum[4] ,"10:00","10");
+        dataset.setValue(commentNum[5] ,"11:00","11");
+        dataset.setValue(commentNum[6] ,"12:00","12");
+        dataset.setValue(commentNum[7] ,"13:00","13");
+        dataset.setValue(commentNum[8] ,"14:00","14");
+        dataset.setValue(commentNum[9] ,"15:00","15");
+        dataset.setValue(commentNum[10],"16:00","16");
+        dataset.setValue(commentNum[11],"17:00","17");
+        dataset.setValue(commentNum[12],"18:00","18");
+        dataset.setValue(commentNum[13],"19:00","19");
+        dataset.setValue(commentNum[14],"20:00","20");
+        dataset.setValue(commentNum[15],"21:00","21");
+        dataset.setValue(commentNum[16],"22:00","22");
+        dataset.setValue(commentNum[17],"23:00","23");
+        dataset.setValue(commentNum[18],"24:00","00");
+        dataset.setValue(commentNum[19],"1:00" , "1");
+        dataset.setValue(commentNum[20],"2:00" , "2");
+        dataset.setValue(commentNum[21],"3:00" , "3");
+        dataset.setValue(commentNum[22],"4:00" , "4");
+        dataset.setValue(commentNum[23],"5:00" , "5");*/
+        return dataset;
+    }
+    
+    public static JFreeChart createChart(CategoryDataset dataset){
+        JFreeChart chart=ChartFactory.createBarChart("chart of comment time", 
+        		"time", 
+                "commentNum", 
+                dataset, 
+                PlotOrientation.VERTICAL,
+                true,
+                true, 
+                false);
+        return chart;
+    }
+    
+    public static JPanel createPanel(){
+        JFreeChart chart =createChart(createDataset());
+        return new ChartPanel(chart);
+    }
+    
+    public static void main(String[] args){
+        Jfreechart chart=new Jfreechart("chart");
+        chart.pack();//以合适的大小显示
+        chart.setVisible(true);
+    }
+}

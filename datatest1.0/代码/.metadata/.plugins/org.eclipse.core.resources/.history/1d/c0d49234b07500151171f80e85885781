@@ -1,0 +1,21 @@
+package mysql_txt;
+
+public class Get_mail {
+	
+	String mail(String str){
+		String returnstring="error";
+		for(int i=0;i<str.length();i++){
+			if(str.charAt(i)=='@'){
+				returnstring=str.substring(i, str.length());
+			}
+		}
+		return returnstring;
+	}
+
+	public static void main(String[] args) {
+		Get_mail getmail=new Get_mail();
+		System.out.println(getmail.mail("fhysdfs,@qq.com"));
+
+	}
+
+}

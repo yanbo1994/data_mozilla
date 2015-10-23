@@ -1,0 +1,67 @@
+package mysql_txt;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import dataprocess_mysql.TransTime;
+
+public class Mail_mysql_txt {
+
+	private static int record=0;;
+
+	public static void main(String[] args) {
+	    try {
+		      Class.forName("com.mysql.jdbc.Driver");     //加载MYSQL JDBC驱动程序   
+		     System.out.println("Success loading Mysql Driver!");
+		    }
+		    catch (Exception e) {
+		      System.out.print("Error loading Mysql Driver!");
+		      e.printStackTrace();
+		    }
+		    try {
+		      Connection connect = DriverManager.getConnection(
+		          "jdbc:mysql://localhost:3306/github_db","root","");
+		           //连接URL为   jdbc:mysql//服务器地址/数据库名  ，后面的2个参数分别是登陆用户名和密码
+		      System.out.println("Success connect Mysql server!");
+		      
+		      Statement stmt = connect.createStatement();
+		      ResultSet rs1 = stmt.executeQuery("select Login_ID from info_level2");
+		      ResultSet rs2 = stmt.executeQuery("select Comment_Time from info_level2");
+				FileOutputStream wf=new FileOutputStream("D:\\文件\\专业实训二\\2011_mozilla\\mailtime.txt");
+		                                                        
+		      while (rs1.next() || rs2.next()) {
+
+		  		Get_mail getmail=new Get_mail();
+		  		 String mail0=getmail.mail(rs1.getString("Login_ID"));
+		  		 String mail=mail0+"\n";
+		  		 String sttrr=mail+rs2.getString("Comment_Time");
+		  		 
+		 		try{
+					byte buffer[] = sttrr.getBytes();//String转换为byte[]
+					//System.out.println("buffer[0] is: "+buffer[0]);
+					wf.write(buffer,0,buffer.length);
+					System.out.println("write:"+record++);
+				}
+				catch(IOException ieo){
+					System.out.println(ieo);
+				} 
+				catch(Exception e){
+					System.out.println(e);
+				}		  		 
+		          
+		      }
+		      wf.close();
+		      connect.close();
+		      System.out.print("sucess of write:"+record);
+		    }
+		    catch (Exception e) {
+		      System.out.print("get data error!");
+		      e.printStackTrace();
+		    }
+	}
+
+}

@@ -1,0 +1,34 @@
+package dataprocess;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class Getdata {
+	public static int length=200;
+	static byte[] array=new byte[length];
+
+	public static void main(String[] args) throws IOException {
+		try{
+			FileInputStream rf;
+			rf=new FileInputStream("D:\\文件\\专业实训二\\2011_mozilla\\2011_mozilla_info_level2");
+			int n=3000;
+			byte buffer[]=new byte[n];
+			while((rf.read(buffer))!=-1){
+				for(int i=0;i<length;i++){
+					array[i]=buffer[i];
+				}
+				System.out.println(new String(buffer));
+			}
+			System.out.println();
+			rf.close();
+		}
+		catch(IOException ioe){
+			System.out.println(ioe);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+
+	}
+
+}

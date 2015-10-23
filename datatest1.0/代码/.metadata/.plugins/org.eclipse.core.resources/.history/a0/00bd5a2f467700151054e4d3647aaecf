@@ -1,0 +1,10 @@
+package dataprocess_txt;
+
+public class Mailsuffix_BigtoSmall {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

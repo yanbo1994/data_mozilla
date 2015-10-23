@@ -1,0 +1,44 @@
+package dataprocess_txt;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class Mailsuffix_BigtoSmall {
+	public static void main(String[] args) throws IOException {
+		try{
+			FileInputStream rf;
+			rf=new FileInputStream("D:\\文件\\专业实训二\\2011_mozilla\\mai_country3.txt");
+			FileOutputStream wf;
+			wf=new FileOutputStream("D:\\文件\\专业实训二\\2011_mozilla\\mai_country4.txt");
+			int n=200;//偏移量，每次读取长度
+			byte buffer1[]=new byte[n];
+			while((rf.read(buffer1, 0, n))!=-1){//循环读取，直至读到末尾
+				System.out.println(new String(buffer1));
+				String a = new String(buffer1);
+				Mailsuffix_BigtoSmall mm=new Mailsuffix_BigtoSmall();
+				String b=mm.change(a);
+				byte[] buffer2 = b.getBytes();
+				wf.write(buffer2, 0, n);//将读取的buffer中的数据写入
+				System.out.println(new String(buffer2));
+			}
+			System.out.println();
+			System.out.println("sucess of write");
+			rf.close();
+			wf.close();
+		}
+		catch(IOException ioe){
+			System.out.println(ioe);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+
+	}
+
+	private String change(String a) {
+		String s=(a.substring(0, 1)).toLowerCase();
+		return s;
+	}
+
+}

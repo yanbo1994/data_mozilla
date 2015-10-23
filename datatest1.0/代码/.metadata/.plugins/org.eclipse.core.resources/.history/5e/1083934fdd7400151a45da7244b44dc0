@@ -1,0 +1,28 @@
+package lookup_data_txt;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class Getdata {
+	public static void main(String[] args) throws IOException {
+		try{
+			FileInputStream rf;
+			rf=new FileInputStream("D:\\文件\\专业实训二\\2011_mozilla\\2011_mozilla_info_level1");
+			int n=30000;
+			byte buffer[]=new byte[n];
+			while((rf.read(buffer, 0, n))!=-1){
+				System.out.println(new String(buffer));
+			}
+			System.out.println();
+			rf.close();
+		}
+		catch(IOException ioe){
+			System.out.println(ioe);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+
+	}
+
+}
